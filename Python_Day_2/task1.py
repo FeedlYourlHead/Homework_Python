@@ -1,13 +1,31 @@
 tasks = []
 while True:
-    choice = int(input("""
-Выберите команду:
-1.Добавить задачу.
-2.Удалить задачу по значению.
-3.Удалить по индексу.
-4.Просмотреть задачи.
-5.Выйти из программы.
-~:"""))
-    # try:
-
-    # except
+    try:
+        choice = int(input("""
+        Выберите команду:
+        1.add
+        2.remove
+        3.list
+        4.exit
+        ~:"""))
+        if choice == 1:
+            task = input("Название задачи: ")
+            tasks.append(task)
+        elif choice == 2:
+            while True:
+                try:
+                    index = int(input("Введите индекс задачи, который вы хотите удалить: "))
+                    print(f'Задача "{tasks.pop(index)}" была удалена!!!')
+                    break
+                except (IndexError, ValueError):
+                    print("Введите корректный индекс!!!")
+                    continue
+        elif choice == 3:
+            print("------------------------------------------")
+            for i in range(len(tasks)):
+                print(f"{i}.{tasks[i]}")
+            print("------------------------------------------")
+        elif choice == 4:
+            exit()
+    except (TypeError, ValueError):
+        print("Введите коректное значение!!!")
