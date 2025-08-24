@@ -14,6 +14,9 @@ while True:
         elif choice == 2:
             while True:
                 try:
+                    if len(tasks) == 0:
+                        print("Список пуст!!!")
+                        break
                     index = int(input("Введите индекс задачи, который вы хотите удалить: "))
                     print(f'Задача "{tasks.pop(index)}" была удалена!!!')
                     break
