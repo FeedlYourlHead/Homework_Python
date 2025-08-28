@@ -6,5 +6,4 @@ for i in range(num):
     char = chr(num)
     result += char
 print(f"Ваш пароль: {result}")
-    
 
