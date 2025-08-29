@@ -1,4 +1,4 @@
-from random import randint, shuffle, choice
+from random import shuffle, choice
 from string import ascii_lowercase, ascii_uppercase, digits
 
 num = int(input("Введите длину вашего пароля: "))
