@@ -2,8 +2,12 @@ import os
 
 def create_note(name, text):
     """Функция, которая создает заметки"""
-    with open(f"notes/{name}.txt", 'w', encoding='utf-8') as f:
-        f.write(text)
+    if not os.path.exists('notes'):
+        os.mkdir('notes')
+        create_note(name, text)
+    else:
+        with open(f"notes/{name}.txt", 'w', encoding='utf-8') as f:
+            f.write(text)
 
 
 def view_list_of_notes():
