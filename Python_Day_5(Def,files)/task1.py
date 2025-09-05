@@ -37,7 +37,9 @@ while True:
         4. Удаление заметки.
         5. Выйти из программы.
                     '''))
-        if choice == 1:
+        if choice not in range(1,6):
+            raise Exception
+        elif choice == 1:
             name = input("Введите название заметки: ")
             if name.endswith(".txt"):
                 name = name[:-4]
