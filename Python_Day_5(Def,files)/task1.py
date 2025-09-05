@@ -26,10 +26,10 @@ def delete_note(name):
     os.remove(f"notes/{name}.txt")
     print(f"Заметка {name} была удалена!!!")
  
+if not os.path.exists('notes'):
+    os.mkdir('notes')
 while True:
     try:
-        if not os.path.exists('notes'):
-            os.mkdir('notes')
         choice = int(input('''
         1. Создание заметки.
         2. Просмотр списка заметок.
