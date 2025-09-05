@@ -9,10 +9,10 @@ def create_note(name, text):
 def view_list_of_notes():
     """Функция просмотра списка заметок"""
     files = os.listdir('notes')
-    result = ''
+    result = 'Список файлов:\n'
     for file in files:
         result += file + '\n'
-    return 'Список файлов:\n' + result
+    return result
 
 
 def read_note(note):
