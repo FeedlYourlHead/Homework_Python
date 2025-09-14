@@ -11,10 +11,7 @@ def find_word(filename, word):
     """Функция, которая ищет слово"""
     count = 0
     with open(f"{filename}", "r", encoding="utf-8") as f:
-        for i in f.read().split(" "):
-            if i.lower() is word.lower():
-                count += 1
-        return count
+        return f.read().lower().count(f"{word.lower()}")
 
 
 def save_statistics(filename):
