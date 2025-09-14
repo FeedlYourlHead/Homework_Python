@@ -24,5 +24,6 @@ def save_statistics(filename):
 
 # test comment
 # more test
+# even more test
 print(word_count("book.txt"))
 print(find_word("book.txt", "Франция"))
