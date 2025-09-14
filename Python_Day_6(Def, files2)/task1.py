@@ -12,18 +12,16 @@ def find_word(filename, word):
     count = 0
     with open(f"{filename}", "r", encoding="utf-8") as f:
         for i in f.read().split(" "):
-            if i == word:
+            if i.lower() is word.lower():
                 count += 1
         return count
 
 
 def save_statistics(filename):
     """Функция, которая сохраняет статистику по словам в файле"""
-    pass
+    with open(f"{filename}", "r", encoding="utf-8") as f:
+        pass
 
 
-# test comment
-# more test
-# even more test
 print(word_count("book.txt"))
-print(find_word("book.txt", "Франция"))
+print(find_word("book.txt", "бог"))
