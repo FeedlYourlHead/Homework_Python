@@ -25,6 +25,7 @@ def save_statistics(filename):
 
     sorted_words = sorted(word_counter.items(), key=lambda x: x[1], reverse=True)
     with open("stats.txt", "w", encoding="utf-8") as f:
+        f.write(f"Всего, количество слов в книге: {word_count('book.txt')}\n")
         for i in range(0, 5):
             f.write(
                 f"Топ {i + 1} слово: '{sorted_words[i][0]}', количество слов:{sorted_words[i][1]}\n"
