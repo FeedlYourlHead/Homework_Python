@@ -1,53 +1,62 @@
-def init():
-    directions = {"w": (-1, 0), "s": (1, 0), "a": (0, -1), "d": (0, 1)}
-    start_pos = (3, 3)
-    exit_pos = (6, 2)
-
-
-# TODO:Доделать функцию
-
-
 def print_maze(maze):
-    pass  # TODO:Сделать функцию
+    """Выводит текущее состояние лабиринта на экран"""
+    for row in maze:
+        print(" ".join(row))
+    print()
 
 
 def find_exit(maze, x, y):
-    pass  # TODO:Сделать функцию
+    """Основная функция"""
+    steps = 0
+
+    while True:
+        print_maze(maze)
+
+        if maze[y][x] == "0":
+            print(f"Поздравляем! Вы нашли выход за {steps} шагов!")
+            return
+
+        move = input("Введите направление (WASD): ").upper()
+        new_x, new_y = x, y
+
+        if move == "W":
+            new_y -= 1
+        elif move == "S":
+            new_y += 1
+        elif move == "A":
+            new_x -= 1
+        elif move == "D":
+            new_x += 1
+        else:
+            print("Неверная команда! Используйте W, A, S, D")
+            continue
+        if (
+            0 <= new_y < len(maze)
+            and 0 <= new_x < len(maze[0])
+            and maze[new_y][new_x] != "#"
+        ):
+            maze[y][x] = "-"
+
+            x, y = new_x, new_y
+            steps += 1
+
+            if maze[y][x] != "0":
+                maze[y][x] = "E"
+        else:
+            print(
+                "Нельзя двигаться в этом направлении! Здесь стена или граница лабиринта."
+            )
 
 
-def get_move(player_turn):
-    pass  # TODO:Сделать функцию
+if __name__ == "__main__":
+    maze = [
+        ["#", "#", "#", "#", "#", "#", "#"],
+        ["#", " ", " ", " ", " ", " ", "#"],
+        ["#", " ", "#", "#", "#", " ", "#"],
+        ["#", " ", "#", "E", " ", " ", "#"],
+        ["#", " ", "#", "#", "#", " ", "#"],
+        ["#", " ", " ", " ", "#", " ", "#"],
+        ["#", "#", "0", "#", "#", "#", "#"],
+    ]
 
-
-def main():
-    pass  # TODO:Сделать функцию
-
-
-# NOTE:
-# def get_moves(piece, position, board):
-#     x, y = position
-#     moves = [] #список возможных ходов
-#     color = piece['color']
-#     # [[{}, {}, {}], [{}, {}, {}], [{},{},{}]]
-#     # dy dx -направления
-#     symbol = piece['symbol'].upper()
-#     if symbol == 'P':#пешка
-#       if color == 'white':
-#             direction = -1
-#         else:
-#             direction = 1
-#         # direction = -1 if color=='white' else 1
-#         #ход на одну клетку
-#         if 0 <= y + direction < 8 and board[y+direction][x] is None:
-#             moves.append((x, y+direction))
-#             #ход на 2 первый ход
-#             # if board[y][x]
-#         #взятие по диагонали
-#         for dx in [-1, 1]:
-#             # nx, ny - новые координаты
-#             nx, ny = x + dx, y + direction
-#             if 0 <= nx < 8 and 0 <= ny < 8:
-#                 target = board[ny][nx]#цель, новая позиция
-#                 if target is None or target['color'] != color:
-#                     moves.append((nx, ny))
-#
+    find_exit(maze, 3, 3)
