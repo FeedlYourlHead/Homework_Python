@@ -2,7 +2,6 @@ def print_maze(maze):
     """Выводит текущее состояние лабиринта на экран"""
     for row in maze:
         print(" ".join(row))
-    print()
 
 
 def find_exit(maze, x, y):
