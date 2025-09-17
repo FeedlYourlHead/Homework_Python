@@ -4,7 +4,7 @@ class Item:
         self.year = year
 
     def __str__(self):
-        return f"Название: {self.title}\nГод: {self.year}\n"
+        return f"\nНазвание: {self.title}\nГод: {self.year}\n"
 
 
 class Book(Item):
@@ -34,7 +34,7 @@ class Magazine(Book):
 
 
 def main():
-    book_shell = []
+    bookshelf = []
     while True:
         try:
             choice = int(
@@ -53,13 +53,13 @@ def main():
             elif choice == 1:
                 title = input("Название: ")
                 year = input("Год: ")
-                book_shell.append(Item(title, year))
+                bookshelf.append(Item(title, year))
             elif choice == 2:
                 title = input("Название: ")
                 year = input("Год: ")
                 author = input("Автор: ")
                 pages = input("Количество страниц: ")
-                book_shell.append(Book(title, year, author, pages))
+                bookshelf.append(Book(title, year, author, pages))
             elif choice == 3:
                 title = input("Название: ")
                 year = input("Год: ")
@@ -67,11 +67,9 @@ def main():
                 pages = input("Количество страниц: ")
                 issue = input("Номер выпуска: ")
                 publisher = input("Издательство: ")
-                book_shell.append(
-                    Magazine(title, year, author, pages, issue, publisher)
-                )
+                bookshelf.append(Magazine(title, year, author, pages, issue, publisher))
             elif choice == 4:
-                for i in book_shell:
+                for i in bookshelf:
                     print(i)
 
             elif choice == 5:
