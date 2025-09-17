@@ -75,14 +75,16 @@ def main():
             elif choice == 5:
                 break
             elif choice == 6:
-                item1 = Item("Война и мир", 1869)
-                book1 = Book("Исскуство программирования", 1962, "Дональд Кнут", 3344)
-                magazine1 = Magazine(
+                item_example = Item("Война и мир", 1869)
+                book_example = Book(
+                    "Исскуство программирования", 1962, "Дональд Кнут", 3344
+                )
+                magazine_example = Magazine(
                     "Журнал 'Код'", 2025, "Михаил Полянин", 500, 15, "ЯндексПрактикум"
                 )
-                print(item1)
-                print(book1)
-                print(magazine1)
+                print(item_example)
+                print(book_example)
+                print(magazine_example)
 
         except Exception:
             print("Введите корректное значение")
