@@ -16,27 +16,23 @@ def find_exit(maze, x, y):
             return
 
         move = input("Введите направление (WASD): ").upper()
-        new_x, new_y = x, y
+        nx, ny = x, y
 
         if move == "W":
-            new_y -= 1
+            ny -= 1
         elif move == "S":
-            new_y += 1
+            ny += 1
         elif move == "A":
-            new_x -= 1
+            nx -= 1
         elif move == "D":
-            new_x += 1
+            nx += 1
         else:
             print("Неверная команда! Используйте W, A, S, D")
             continue
-        if (
-            0 <= new_y < len(maze)
-            and 0 <= new_x < len(maze[0])
-            and maze[new_y][new_x] != "#"
-        ):
+        if 0 <= ny < len(maze) and 0 <= nx < len(maze[0]) and maze[ny][nx] != "#":
             maze[y][x] = "-"
 
-            x, y = new_x, new_y
+            x, y = nx, ny
             steps += 1
 
             if maze[y][x] != "0":
