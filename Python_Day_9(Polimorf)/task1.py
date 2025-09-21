@@ -4,21 +4,25 @@ class Dish:
         self.price = price
 
     def __str__(self):
-        return f"Блюдо: {self.name} - цена {self.price}"
+        return f"{self.name} - цена {self.price}"
 
 
 class Order:
-    def __init__(self, **kwargs):
-        self.kwargs = kwargs
+    def __init__(self, *args):
+        self.dishes = args
+
+    def total_price(self):
+        return sum(dish.price for dish in self.dishes)
 
     def __add__(self, other):
-        pass
+        return Order(*(self.dishes + other.dishes))
 
     def __gt__(self, other):
-        pass
+        return self.total_price() > other.total_price()
 
     def __str__(self):
-        return f"Ваш заказ: {pass}"
+        dishes_list = "\n".join(str(dish) for dish in self.dishes)
+        return f"Ваш заказ:\n{dishes_list}\nОбщая стоимость: {self.total_price()}"
 
 
 class MainDish(Dish):
@@ -26,20 +30,95 @@ class MainDish(Dish):
         super().__init__(name, price)
         self.is_vegan = is_vegan
 
+    def __str__(self):
+        veg = "(вегетарианоское)" if self.is_vegan else "(не вегетарианоское)"
+        return f"{super().__str__()}{veg}"
+
 
 class Dessert(Dish):
-    def __init__(self, name, price, type_of):
+    def __init__(self, name, price, hot):
         super().__init__(name, price)
-        self.type_of = type_of
+        self.hot = hot
+
+    def __str__(self):
+        hot = "(горячий десерт)" if self.hot else "(холодный десерт)"
+        return super().__str__() + hot
 
 
 class Drink(Dish):
-    def __init__(self, name, price, hot_or_cold):
+    def __init__(self, name, price, is_alchogolic):
         super().__init__(name, price)
-        self.hot_or_cold = hot_or_cold
+        self.is_alchogolic = is_alchogolic
+
+    def __str__(self):
+        alc = (
+            "(алкогольный напиток)"
+            if self.is_alchogolic
+            else "(безалкогольный напиток)"
+        )
+        return super().__str__() + alc
+
+
+def print_menu(list_dish):
+    for index, tup in enumerate(list_dish):
+        print(f"{index + 1}){tup[0]} - {tup[1]} рублей.")
+
+
+def choose_dish():
+    list_main_dished = [
+        ("Стейк с картофелем", 1200, False),
+        ("Овощное рагу", 900, True),
+        ("Красная рыба с рисом", 1400, False),
+    ]
+    list_desserts = [
+        ("Шоколадное мороженое", 400, False),
+        ("Шоколадный торт", 600, True),
+        ("Чизкейк", 550, False),
+    ]
+    list_drinks = [
+        ("Чай", 200, False),
+        ("Красное вино", 800, True),
+        ("Кофе", 300, False),
+    ]
+
+    choice = int(
+        input("""
+    Введите, что вы хотите заказать:
+    1.Основное блюдо.
+    2.Дессерт.
+    3.Напиток.
+    """)
+    )
+    if choice not in range(1, 4):
+        raise Exception
+    elif choice == 1:
+        print_menu(list_main_dished)
+        return MainDish(*list_main_dished[int(input("Выбор: ")) - 1])
+    elif choice == 2:
+        print_menu(list_desserts)
+        return Dessert(*list_desserts[int(input("Выбор: ")) - 1])
+    elif choice == 3:
+        print_menu(list_drinks)
+        return Drink(*list_drinks[int(input("Выбор: ")) - 1])
+
+
+def choose_two_orders(list_orders):
+    if len(list_orders) < 1:
+        raise Exception
+    for i, dish in enumerate(list_orders):
+        print(f"{i + 1}) {dish}")
+    i1 = int(input("Выберите первый заказ: ")) - 1
+    i2 = int(input("Выберите второй заказ: ")) - 1
+    if i1 not in range(len(list_orders)) or i2 not in range(len(list_orders)):
+        raise Exception
+    ord1 = list_orders[i1]
+    ord2 = list_orders[i2]
+
+    return ord1, ord2
 
 
 def main():
+    list_orders = []
     while True:
         try:
             choice = int(
@@ -51,12 +130,21 @@ def main():
             4.Выход.
             """)
             )
-            if choice not in range(1,5):
+            if choice not in range(1, 5):
                 raise Exception
             elif choice == 1:
-                pass
+                dish_obj = choose_dish()
+                ord_obj = Order(dish_obj)
+                list_orders.append(ord_obj)
+                print(str(ord_obj) + "был успешно добавлен!!!")
+            elif choice == 2:
+                ord1, ord2 = choose_two_orders(list_orders)
+                print(ord1 + ord2)
+            elif choice == 4:
+                break
         except Exception:
             print("Введите корректное значение!!!")
+
 
 if __name__ == "__main__":
     main()
