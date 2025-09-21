@@ -136,7 +136,7 @@ def main():
                 dish_obj = choose_dish()
                 ord_obj = Order(dish_obj)
                 list_orders.append(ord_obj)
-                print(str(ord_obj) + "был успешно добавлен!!!")
+                print(str(ord_obj) + "\nЗаказ был успешно добавлен!!!")
             elif choice == 2:
                 order_1, order_2 = choose_two_orders(list_orders)
                 list_orders.remove(order_1)
