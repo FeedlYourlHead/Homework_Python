@@ -122,15 +122,15 @@ def main():
     while True:
         try:
             choice = int(
-                input("""
-            Введите номер команды:
+                input(""" Введите номер команды:
             1.Сделать заказ.
             2.Суммировать заказы.
             3.Сравнить заказ по стоимости.
-            4.Выход.
+            4.Показать список заказов.
+            5.Выход.
             """)
             )
-            if choice not in range(1, 5):
+            if choice not in range(1, 6):
                 raise Exception
             elif choice == 1:
                 dish_obj = choose_dish()
@@ -139,8 +139,19 @@ def main():
                 print(str(ord_obj) + "был успешно добавлен!!!")
             elif choice == 2:
                 ord1, ord2 = choose_two_orders(list_orders)
-                print(ord1 + ord2)
+                list_orders.remove(ord1)
+                list_orders.remove(ord2)
+                list_orders.append(ord1 + ord2)
+            elif choice == 3:
+                ord1, ord2 = choose_two_orders(list_orders)
+                if ord1 > ord2:
+                    print("Первый заказ стоит дороже второго!")
+                else:
+                    print("Второй заказ стоит дороже первого!")
             elif choice == 4:
+                for i, dish in enumerate(list_orders):
+                    print(f"{i + 1}) {dish}")
+            elif choice == 5:
                 break
         except Exception:
             print("Введите корректное значение!!!")
