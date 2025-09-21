@@ -31,7 +31,7 @@ class MainDish(Dish):
         self.is_vegan = is_vegan
 
     def __str__(self):
-        veg = "(вегетарианоское)" if self.is_vegan else "(не вегетарианоское)"
+        veg = "(вегетарианское)" if self.is_vegan else "(не вегетарианское)"
         return f"{super().__str__()}{veg}"
 
 
