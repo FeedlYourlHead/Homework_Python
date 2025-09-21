@@ -107,14 +107,14 @@ def choose_two_orders(list_orders):
         raise Exception
     for i, dish in enumerate(list_orders):
         print(f"{i + 1}) {dish}")
-    i1 = int(input("Выберите первый заказ: ")) - 1
-    i2 = int(input("Выберите второй заказ: ")) - 1
-    if i1 not in range(len(list_orders)) or i2 not in range(len(list_orders)):
+    index_1 = int(input("Выберите первый заказ: ")) - 1
+    index_2 = int(input("Выберите второй заказ: ")) - 1
+    if index_1 not in range(len(list_orders)) or index_2 not in range(len(list_orders)):
         raise Exception
-    ord1 = list_orders[i1]
-    ord2 = list_orders[i2]
+    order_1 = list_orders[index_1]
+    order_2 = list_orders[index_2]
 
-    return ord1, ord2
+    return order_1, order_2
 
 
 def main():
@@ -138,13 +138,13 @@ def main():
                 list_orders.append(ord_obj)
                 print(str(ord_obj) + "был успешно добавлен!!!")
             elif choice == 2:
-                ord1, ord2 = choose_two_orders(list_orders)
-                list_orders.remove(ord1)
-                list_orders.remove(ord2)
-                list_orders.append(ord1 + ord2)
+                order_1, order_2 = choose_two_orders(list_orders)
+                list_orders.remove(order_1)
+                list_orders.remove(order_2)
+                list_orders.append(order_1 + order_2)
             elif choice == 3:
-                ord1, ord2 = choose_two_orders(list_orders)
-                if ord1 > ord2:
+                order_1, order_2 = choose_two_orders(list_orders)
+                if order_1 > order_2:
                     print("Первый заказ стоит дороже второго!")
                 else:
                     print("Второй заказ стоит дороже первого!")
