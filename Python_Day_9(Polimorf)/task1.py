@@ -149,8 +149,10 @@ def main():
                 else:
                     print("Второй заказ стоит дороже первого!")
             elif choice == 4:
+                print("-----------------------------------")
                 for i, dish in enumerate(list_orders):
-                    print(f"{i + 1}) {dish}")
+                    print(f"{i + 1}) {dish}\n")
+                print("-----------------------------------")
             elif choice == 5:
                 break
         except Exception:
