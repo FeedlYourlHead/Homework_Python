@@ -60,11 +60,13 @@ class Drink(Dish):
 
 
 def print_menu(list_dish):
+    """Функция, которая печатает заранее составленное меню, чтобы пользователь мог его выбрать."""
     for index, tup in enumerate(list_dish):
         print(f"{index + 1}){tup[0]} - {tup[1]} рублей.")
 
 
 def choose_dish():
+    """Функция, в которой пользователь выбирает какое блюдо он хочет добавить в заказ."""
     list_main_dished = [
         ("Стейк с картофелем", 1200, False),
         ("Овощное рагу", 900, True),
@@ -103,6 +105,7 @@ def choose_dish():
 
 
 def choose_two_orders(list_orders):
+    """Вспомогательная функция, в которой пользователь выбирает два заказа, для демонстрации, что объекты класса Order можно складывать и сравнивать"""
     if len(list_orders) < 1:
         raise Exception
     for i, dish in enumerate(list_orders):
@@ -118,6 +121,7 @@ def choose_two_orders(list_orders):
 
 
 def main():
+    """Главная функция"""
     list_orders = []
     while True:
         try:
