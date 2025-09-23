@@ -14,7 +14,7 @@ class Order:
     def total_price(self):
         return sum(dish.price for dish in self.dishes)
 
-    def add_dish_in_order(self, dish):
+    def add_dish(self, dish):
         self.dishes.append(dish)
         return self
 
@@ -172,7 +172,7 @@ def main():
                 choice_order = int(input("Номер заказ:"))
                 ord_obj = list_orders[choice_order - 1]
                 dish_obj = choose_dish()
-                ord_obj.add_dish_in_order(dish_obj)
+                ord_obj.add_dish(dish_obj)
 
             elif choice == 5:
                 print("Выберите заказ, из которого вы хотите удалить блюдо:")
