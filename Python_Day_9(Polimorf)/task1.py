@@ -9,10 +9,19 @@ class Dish:
 
 class Order:
     def __init__(self, *args):
-        self.dishes = args
+        self.dishes = list(args)
 
     def total_price(self):
         return sum(dish.price for dish in self.dishes)
+
+    def add_dish_in_order(self, dish):
+        self.dishes.append(dish)
+        return self
+
+    def remove_dish(self, index):
+        if 0 <= index < len(self.dishes):
+            return self.dishes.pop(index)
+        raise IndexError("Неверный индекс блюда")
 
     def __add__(self, other):
         return Order(*(self.dishes + other.dishes))
@@ -130,11 +139,13 @@ def main():
             1.Сделать заказ.
             2.Суммировать заказы.
             3.Сравнить заказ по стоимости.
-            4.Показать список заказов.
-            5.Выход.
+            4.Добавить блюдо в заказ.
+            5.Удалить блюдо из заказа.
+            6.Показать список заказов.
+            7.Выход.
             """)
             )
-            if choice not in range(1, 6):
+            if choice not in range(1, 8):
                 raise Exception
             elif choice == 1:
                 dish_obj = choose_dish()
@@ -153,11 +164,40 @@ def main():
                 else:
                     print("Второй заказ стоит дороже первого!")
             elif choice == 4:
+                print("Выберите заказ, в который вы хотите добавить блюдо:")
                 print("-----------------------------------")
                 for i, dish in enumerate(list_orders):
                     print(f"{i + 1}) {dish}\n")
                 print("-----------------------------------")
+                choice_order = int(input("Номер заказ:"))
+                ord_obj = list_orders[choice_order - 1]
+                dish_obj = choose_dish()
+                ord_obj.add_dish_in_order(dish_obj)
+
             elif choice == 5:
+                print("Выберите заказ, из которого вы хотите удалить блюдо:")
+                for i, order in enumerate(list_orders):
+                    print(f"{i + 1}) Заказ #{i + 1}")
+                choice_order = int(input("Номер заказа: ")) - 1
+                if 0 <= choice_order < len(list_orders):
+                    order = list_orders[choice_order]
+                    print("Блюда в заказе:")
+                    for j, dish in enumerate(order.dishes):
+                        print(f"{j + 1}) {dish}")
+                    choice_dish = int(input("Номер блюда для удаления: ")) - 1
+                    try:
+                        removed_dish = order.remove_dish(choice_dish)
+                        print(f"Блюдо '{removed_dish.name}' удалено из заказа.")
+                    except IndexError:
+                        print("Ошибка: неверный номер блюда!")
+                else:
+                    print("Ошибка: неверный номер заказа!")
+            elif choice == 6:
+                print("-----------------------------------")
+                for i, dish in enumerate(list_orders):
+                    print(f"{i + 1}) {dish}\n")
+                print("-----------------------------------")
+            elif choice == 7:
                 break
         except Exception:
             print("Введите корректное значение!!!")
