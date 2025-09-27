@@ -8,5 +8,6 @@ class Employee(ABC):
     @abstractmethod
     def work(self):
         pass
+        #test comment
 
 
