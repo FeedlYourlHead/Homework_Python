@@ -9,5 +9,6 @@ class Employee(ABC):
     def work(self):
         pass
         #test comment
+        #another test comment
 
 
