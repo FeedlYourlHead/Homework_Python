@@ -4,11 +4,27 @@ class Employee(ABC):
     def __init__(self, name, role):
         self.name = name
         self.role = role
+        self.completed_tasks = 0
 
     @abstractmethod
     def work(self, task) -> str:
-        """Функция, которая возвращает результат работы работника"""
+        """Функция, которая возвращает результат работы сотрудника."""
         pass
+
+    def __eq__(self, other) -> bool:
+        if not isinstance(other, Employee):
+            return NotImplemented
+        return self.completed_tasks == other.completed_tasks
+
+    def __gt__(self, other):
+        if not isinstance(other, Employee):
+            return NotImplemented
+        return self.completed_tasks > other.completed_tasks
+
+    def __lt__(self, other):
+        if not isinstance(other, Employee):
+            return NotImplemented
+        return self.completed_tasks < other.completed_tasks
 
 class Developer(Employee):
     def __init__(self, name):
