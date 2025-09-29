@@ -47,6 +47,7 @@ class Tester(Employee):
 class Manager(Employee):
     def __init__(self, name):
         super().__init__(name, role="Manager")
+
     def work(self, task):
         task.condition -= 1
         return  f"Работа окончена" if task.condition == 0 else f"Управляю командой, до окончания задания {task.name} осталось: {task.condition}"
