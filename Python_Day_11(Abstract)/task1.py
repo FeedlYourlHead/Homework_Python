@@ -32,7 +32,10 @@ class Developer(Employee):
 
     def work(self, task):
         task.condition -= 1
-        return  f"Работа окончена" if task.condition == 0 else f"Разрабатываю код, до окончания задания {task.name} осталось: {task.condition}"
+        if task.condition == 0:
+            self.completed_tasks += 1
+            return "Работа окончена"
+        return f"Разрабатываю код, до окончания задания {task.name} осталось: {task.condition}"
 
 class Tester(Employee):
     def __init__(self, name):
@@ -49,9 +52,8 @@ class Manager(Employee):
         return  f"Работа окончена" if task.condition == 0 else f"Управляю командой, до окончания задания {task.name} осталось: {task.condition}"
 
 class LeadDeveloper(Developer, Manager):
-    def __init__(self, name, role):
-        super(Developer).__init__(name)
-        super(Manager).__init__(name, role)
+    def work(self, task):
+        return super().work(task)
 
 class Task:
     def __init__(self, task, emloyee) -> None:
@@ -64,30 +66,10 @@ class Project:
         self.tasks = tasks
         self.emloyees = emloyees
 
-# dev = Developer("Boris")
-# print(dev.name)
-# print(dev.role)
-
-
-def make_project():
-    pass
-
-
 def main():
-    while True:
-        try:
-            choice = int(input("""Введите номер команды:
-            1. Создать проект.
-            2. Добавить задачу в проект.
-            3. Добавить сотрудника в проект.
-            4. Управление сотрудниками.
-            5. Выход."""))
-            if choice == 1:
-                make_project()
-            elif choice == 2:
-                pass
-            elif choice == 5:
-                break
-        except Exception:
-            pass
+    lead = LeadDeveloper("Boris")
+    task = Task("Сделать фичу", lead)
+    print(lead.work(task))
 
+if __name__ == "__main__": 
+    main()
