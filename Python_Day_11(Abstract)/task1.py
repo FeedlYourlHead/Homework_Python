@@ -53,8 +53,11 @@ class Manager(Employee):
         return  f"Работа окончена" if task.condition == 0 else f"Управляю командой, до окончания задания {task.name} осталось: {task.condition}"
 
 class LeadDeveloper(Developer, Manager):
+    def __init__(self):
+        pass #Кол-во человек в команде
+
     def work(self, task):
-        return super().work(task)
+        return f""
 
 class Task:
     def __init__(self, task, emloyee) -> None:
@@ -64,7 +67,7 @@ class Task:
 
 class Project:
     def __init__(self, tasks, emloyees) -> None:
-        self.tasks = tasks
+        self.tasks = tasks #Список экземпляров Task
         self.emloyees = emloyees
 
 def main():
