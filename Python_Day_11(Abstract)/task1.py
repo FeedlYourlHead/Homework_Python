@@ -53,8 +53,10 @@ class Manager(Employee):
         return  f"Работа окончена" if task.condition == 0 else f"Управляю командой, до окончания задания {task.name} осталось: {task.condition}"
 
 class LeadDeveloper(Developer, Manager):
-    def __init__(self):
-        pass #Кол-во человек в команде
+    def __init__(self, name, command):
+        super().__init__(name)
+        self.role = "LeadDeveloper"
+        self.command = command
 
     def work(self, task):
         return f""
@@ -71,9 +73,10 @@ class Project:
         self.emloyees = emloyees
 
 def main():
-    lead = LeadDeveloper("Boris")
-    task = Task("Сделать фичу", lead)
-    print(lead.work(task))
+    # lead = LeadDeveloper("Boris")
+    # task = Task("Сделать фичу", lead)
+    # print(lead.work(task))
+    pass
 
 if __name__ == "__main__": 
     main()
