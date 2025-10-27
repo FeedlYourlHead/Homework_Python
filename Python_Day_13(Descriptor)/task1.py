@@ -10,7 +10,22 @@ class FinancialDescriptor:
     ◦ min_value, max_value - ограничения значений
     ◦ История изменений с timestamp     
     """
-    pass
+    def __init__(self, name, min_value, max_value, timestamp) -> None:
+        self.name = name
+        self.min_value = min_value
+        self.max_value = max_value
+        self.timestamp = timestamp
+
+    def __get__(self, instance, owner):
+        pass
+
+    def __set__(self, instance, value):
+        pass
+
+    def __set_name__(self, owner, name):
+
+        self.public_name = name
+        self.private_name = '_' + name
 
 class BalanceDescriptor(FinancialDescriptor):
     """
@@ -48,22 +63,23 @@ class CategoryDescriptor(FinancialDescriptor):
 
 
 class FinancialAccount:
-    # 2.1. Свойства экземпляра (Properties)
-    #     • age_days - количество дней с момента создания счета
-    #     • total_commission_paid - общая сумма уплаченных комиссий
-    #     • monthly_statistics - статистика за текущий месяц
-    # 2.2. Методы класса (Class Methods)
-    #     • convert_currency() - конвертация между валютами
-    #     • set_exchange_rate() - установка курсов валют
-    #     • Статическое свойство: словарь курсов валют
-    # 2.3. Статические методы (Static Methods)
-    #     • _get_current_timestamp() - получение текущего времени
-    # 2.4. Методы экземпляра
-    #     • make_transaction() - проведение транзакции с полной валидацией
-    #     • deposit() - пополнение счета
-    #     • __init__() - инициализация с валидацией параметров
-    #     • __str__() - строковое представление объекта
-
+    """
+    2.1. Свойства экземпляра (Properties)
+        • age_days - количество дней с момента создания счета
+        • total_commission_paid - общая сумма уплаченных комиссий
+        • monthly_statistics - статистика за текущий месяц
+    2.2. Методы класса (Class Methods)
+        • convert_currency() - конвертация между валютами
+        • set_exchange_rate() - установка курсов валют
+        • Статическое свойство: словарь курсов валют
+    2.3. Статические методы (Static Methods)
+        • _get_current_timestamp() - получение текущего времени
+    2.4. Методы экземпляра
+        • make_transaction() - проведение транзакции с полной валидацией
+        • deposit() - пополнение счета
+        • __init__() - инициализация с валидацией параметров
+        • __str__() - строковое представление объекта
+    """
     def __init__(self, age_days, total_commission_paid, monthly_statistics):
         self.age_days = age_days
         self.total_commission_paid = total_commission_paid
