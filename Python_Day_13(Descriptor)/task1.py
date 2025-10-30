@@ -1,3 +1,6 @@
+import datetime
+
+
 class FinancialDescriptor:
     """
      Назначение: Базовый дескриптор для всех финансовых атрибутов
@@ -10,17 +13,19 @@ class FinancialDescriptor:
     ◦ min_value, max_value - ограничения значений
     ◦ История изменений с timestamp     
     """
-    def __init__(self, name, min_value, max_value, timestamp) -> None:
-        self.name = name
+    def __init__(self, min_value, max_value) -> None:
         self.min_value = min_value
         self.max_value = max_value
-        self.timestamp = timestamp
+        self.name = None
+        self.timestamp = datetime.datetime.now()
 
     def __get__(self, instance, owner):
-        pass
+        return instance.__dict__.get(self.name, 0)
 
     def __set__(self, instance, value):
-        pass
+        if value < self.min_value or value > self.max_value:
+            raise ValueError("Введено некорректное число")
+        instance.__dict__[self.name] = value
 
     def __set_name__(self, owner, name):
 
