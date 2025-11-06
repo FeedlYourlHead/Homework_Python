@@ -21,7 +21,7 @@ def require_role(role):
         return wrapper
     return decorator
 
-operation_counts = []
+operation_counts = {}
 def limit(rate, period):
     def decorator(func):
         def wrapper(account_id, amount, transaction_type, *args, **kwargs):
@@ -77,7 +77,10 @@ def process_transaction(account_id:int, amount:float, transaction_type:str):
     }
 
 def main():
-    process_transaction(1992, 500000.0, 'withdraw')
+    result1 = process_transaction(1993, 500000.0, 'withdraw')
+    result2 = process_transaction(1992, 10000.0, 'withdraw')
+    result3 = process_transaction(1992, 500000.0, 'deposit')
+    print(f"Результат: {result3}")
 
 if __name__ == "__main__":
     main()
