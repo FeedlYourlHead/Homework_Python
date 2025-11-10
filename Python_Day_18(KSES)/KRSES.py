@@ -94,17 +94,43 @@ class Farm(Building):
     max_food = ResourceLimiter(50)
     def __init__(self, name, storage):
         super().__init__(name, storage)
-        self.food_storage = storage
 
     @log_production
     def produce(self, amount=10):
-        res_name = "Food"
-        curr_food = self.storage.get(res_name, Food(0))
+        # res_name = "Food"
+        # curr_food = self.storage.get(res_name, Food(0))
+        # storage_limit = self.max_food
+        # space_av = storage_limit - curr_food.amount
+        # actual_produced = min(amount, space_av)
+        # if actual_produced <= 0:
+        #     print(f'лимит {self.name} не может произвести food')
+        #     return 0
+        #
+        # new_food = Food(actual_produced)
+        # if res_name in self.storage:
+        #     self.storage[res_name] = new_food + self.storage[res_name]
+        #
+        # else:
+        #     self.storage[res_name] = new_food
+        # print(f'{self.name} произвела {actual_produced} {res_name}')
+        # return actual_produced
+        res_name = 'Food'
+
+        current_resource = self.storage.get(res_name)
+        if current_resource is None:
+            current_amount = 0
+
+        else:
+            current_amount = current_resource.amount
+
+
         storage_limit = self.max_food
-        space_av = storage_limit - curr_food.amount
-        actual_produced = min(amount, space_av)
+
+        space_available = storage_limit - current_amount
+        actual_produced = min(amount, space_available)
+
         if actual_produced <= 0:
-            print(f'лимит {self.name} не может произвести food')
+            print(f'Лимит {self.name} достигнут, не может произвести food')
             return 0
 
         new_food = Food(actual_produced)
@@ -113,6 +139,7 @@ class Farm(Building):
 
         else:
             self.storage[res_name] = new_food
+
         print(f'{self.name} произвела {actual_produced} {res_name}')
         return actual_produced
 
@@ -156,7 +183,10 @@ if __name__ == '__main__':
     #     print(e) #Попытка присвоить отрицательный amount ресурсу
 
     farm.produce()
-    lumber.produce()
+    farm.produce()
+    farm.produce()
+    farm.produce()
+    # lumber.produce()
     print(res_food)
     print(res_food2)
     print(res_wood)
