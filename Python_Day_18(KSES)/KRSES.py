@@ -83,12 +83,10 @@ class ResourceLimiter:
         self.name = name
 
     def __get__(self, instance, owner):
-        return instance.__dict__.get(self.name, 0)
+        return self.limit
 
     def __set__(self, instance, value):
-        if value > self.limit:
-            raise ValueError(f'Не может быть присвоено больше предела {self.limit}')
-        instance.__dict__[self.name] = value
+        pass
 
 class Farm(Building):
     max_food = ResourceLimiter(50)
@@ -97,23 +95,6 @@ class Farm(Building):
 
     @log_production
     def produce(self, amount=10):
-        # res_name = "Food"
-        # curr_food = self.storage.get(res_name, Food(0))
-        # storage_limit = self.max_food
-        # space_av = storage_limit - curr_food.amount
-        # actual_produced = min(amount, space_av)
-        # if actual_produced <= 0:
-        #     print(f'лимит {self.name} не может произвести food')
-        #     return 0
-        #
-        # new_food = Food(actual_produced)
-        # if res_name in self.storage:
-        #     self.storage[res_name] = new_food + self.storage[res_name]
-        #
-        # else:
-        #     self.storage[res_name] = new_food
-        # print(f'{self.name} произвела {actual_produced} {res_name}')
-        # return actual_produced
         res_name = 'Food'
 
         current_resource = self.storage.get(res_name)
@@ -152,20 +133,30 @@ class LumberMill(Building):
     @log_production
     def produce(self, amount=5):
         res_name = 'Wood'
-        curr_wood = self.storage.get(res_name, Wood(0))
-        storage_limit = self.max_wood
-        space_av = storage_limit - curr_wood.amount
-        actual_produced = min(amount, space_av)
-        if actual_produced <= 0:
-            print(f'лимит {self.name} не может произвести wood')
-            return 0
 
+        current_resource = self.storage.get(res_name)
+        if current_resource is None:
+            current_amount = 0
+
+        else: 
+            current_amount = current_resource.amount
+
+        storage_limit = self.max_wood
+
+        space_available = storage_limit - current_amount
+        actual_produced = min(amount, space_available)
+
+        if actual_produced <= 0:
+            print(f'Лимит {self.name} достигнут, не может произвести wood')
+            return 0
+        
         new_wood = Wood(actual_produced)
         if res_name in self.storage:
             self.storage[res_name] = new_wood + self.storage[res_name]
 
         else:
             self.storage[res_name] = new_wood
+
         print(f'{self.name} произвела {actual_produced} {res_name}')
         return actual_produced
 
@@ -176,19 +167,34 @@ if __name__ == '__main__':
     res_wood = Wood()
     farm = Farm("Farm", {'Food': res_food}) #создание экземляра класса Farm
     lumber = LumberMill('Lumber', {'Wood': res_wood}) #создание экземляра класса LumberMill
-    # print(res_food+res_food2) #Демонстрация сложения ресурсов
-    # try:
-    #     res_food.amount = -5
-    # except Exception as e:
-    #     print(e) #Попытка присвоить отрицательный amount ресурсу
+    print('----------------------')
+    print(res_food+res_food2) #Демонстрация сложения ресурсов
+    print('----------------------')
+    try:
+        res_food.amount = -5
+    except Exception as e:
+        print(e) #Попытка присвоить отрицательный amount ресурсу
+    print('----------------------')
 
-    farm.produce()
-    farm.produce()
-    farm.produce()
-    farm.produce()
-    # lumber.produce()
-    print(res_food)
-    print(res_food2)
-    print(res_wood)
+    #Демонстрация работы методов produce и соблюдение работы дескрипторов
+    for i in range(6):
+        farm.produce()
+        print(farm.storage["Food"])
+        print('----------------------')
+    print("")
+    print("")
+    print("")
+    for i in range(9):
+        lumber.produce()
+        print(lumber.storage["Wood"])
+        print('----------------------')
 
-    print(farm.calculate_production_cost("Food"))
+    #Демонстрация статического метода calculate_production_cost (возможно, я неправильно понял суть задания)
+    print(farm.calculate_production_cost('Food'))
+
+
+
+
+
+
+
