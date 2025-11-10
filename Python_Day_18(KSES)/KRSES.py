@@ -18,7 +18,7 @@ class Resource(ABC):
 
     @property
     def amount(self):
-        return self.amount
+        return self._amount
 
     @amount.setter
     def amount(self, value):
@@ -39,7 +39,7 @@ class Resource(ABC):
     def __add__(self, other):
         if self.name != other.name:
             raise TypeError("Не могут быть добавлены разные типы ресурсов")
-        return __class__(self.amount + other.amount)
+        return __class__(self.name, self.amount + other.amount)
 
 class Building(ABC):
     def __init__(self, name, storage):
@@ -83,7 +83,7 @@ class ResourceLimiter:
         self.name = name
 
     def __get__(self, instance, owner):
-        return instance.__dict__.get[self.name, 0]
+        return instance.__dict__.get(self.name, 0)
 
     def __set__(self, instance, value):
         if value > self.limit:
@@ -105,6 +105,7 @@ class Farm(Building):
         actual_produced = min(amount, space_av)
         if actual_produced <= 0:
             print(f'лимит {self.name} не может произвести food')
+            return 0
 
         new_food = Food(actual_produced)
         if res_name in self.storage:
@@ -130,6 +131,7 @@ class LumberMill(Building):
         actual_produced = min(amount, space_av)
         if actual_produced <= 0:
             print(f'лимит {self.name} не может произвести wood')
+            return 0
 
         new_wood = Wood(actual_produced)
         if res_name in self.storage:
@@ -145,11 +147,18 @@ if __name__ == '__main__':
     res_food = Food()
     res_food2 = Food()
     res_wood = Wood()
-    farm = Farm("Farm", {res_food})
-    lumber = LumberMill('Lumber', {res_wood})
-    print(res_food+res_food2)
+    farm = Farm("Farm", {'Food': res_food}) #создание экземляра класса Farm
+    lumber = LumberMill('Lumber', {'Wood': res_wood}) #создание экземляра класса LumberMill
+    # print(res_food+res_food2) #Демонстрация сложения ресурсов
+    # try:
+    #     res_food.amount = -5
+    # except Exception as e:
+    #     print(e) #Попытка присвоить отрицательный amount ресурсу
 
     farm.produce()
     lumber.produce()
+    print(res_food)
+    print(res_food2)
+    print(res_wood)
 
-    farm.calculate_production_cost("Food")
+    print(farm.calculate_production_cost("Food"))
