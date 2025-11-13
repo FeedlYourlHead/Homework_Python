@@ -11,10 +11,14 @@ class Road:
 
 
 class Vehicle(ABC):
-    def __init__(self) -> None:
+    def __init__(self, position) -> None:
         self.safe_distance = 0
         self.max_speed = 0
         self.speed = 0
+        self.position = position
+
+    def get_position(self):
+        return self.position
 
     def check_safe_distance(self):
         pass
@@ -30,8 +34,8 @@ class Vehicle(ABC):
         pass
 
 class Car(Vehicle):
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, position) -> None:
+        super().__init__(position)
         self.safe_distance = 5
         self.max_speed = 230
 
@@ -39,8 +43,8 @@ class Car(Vehicle):
         pass
 
 class Truck(Vehicle):
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, position) -> None:
+        super().__init__(position)
         self.safe_distance = 15
         self.max_speed = 180
 
