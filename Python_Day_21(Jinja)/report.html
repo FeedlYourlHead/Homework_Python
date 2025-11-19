@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Анализ Лог-Файла Веб-Сервера</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Анализ Лог-Файла Веб-Сервера</h1>
+<!--Общая сводка анализа-->
+        <div class="summary-box">
+            <h2>Общая сводка анализа</h2>
+            <p><strong>Время выполнения анализа:</strong> 2.4028 сек.</p>
+            <p><strong>Общее количество запросов:</strong> 100000</p>
+            <p><strong>Общий объем переданных данных:</strong> 280.01 MB</p>
+        </div>
+<!--ТОП 10 самых посещаемых URL-->
+        <h2>ТОП 10 самых посещаемых URL</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 5%;">№</th>
+                    <th style="width: 80%;">URL</th>
+                    <th style="width: 15%;">Количество Запросов</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                    <tr>
+                        <td>1</td>
+                        <td><code>/index.html</code></td>
+                        <td> 10192</td>
+                    </tr>
+                
+                    <tr>
+                        <td>2</td>
+                        <td><code>/products</code></td>
+                        <td> 10132</td>
+                    </tr>
+                
+                    <tr>
+                        <td>3</td>
+                        <td><code>/css/style.css</code></td>
+                        <td> 10123</td>
+                    </tr>
+                
+                    <tr>
+                        <td>4</td>
+                        <td><code>/login</code></td>
+                        <td> 10077</td>
+                    </tr>
+                
+                    <tr>
+                        <td>5</td>
+                        <td><code>/images/logo.png</code></td>
+                        <td> 9997</td>
+                    </tr>
+                
+                    <tr>
+                        <td>6</td>
+                        <td><code>/search?q=python</code></td>
+                        <td> 9969</td>
+                    </tr>
+                
+                    <tr>
+                        <td>7</td>
+                        <td><code>/js/app.js</code></td>
+                        <td> 9946</td>
+                    </tr>
+                
+                    <tr>
+                        <td>8</td>
+                        <td><code>/contact</code></td>
+                        <td> 9941</td>
+                    </tr>
+                
+                    <tr>
+                        <td>9</td>
+                        <td><code>/blog/post-1</code></td>
+                        <td> 9834</td>
+                    </tr>
+                
+                    <tr>
+                        <td>10</td>
+                        <td><code>/services</code></td>
+                        <td> 9789</td>
+                    </tr>
+                
+            </tbody>
+        </table>
+<!--Сводка по Кодам Ответа (Статистика Статусов)-->
+        <h2>Сводка по Кодам Ответа (Статистика Статусов)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Группа Статусов</th>
+                    <th>Описание</th>
+                    <th>Количество Запросов</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>2xx</td>
+                    <td>Успешные запросы (ОК)</td>
+                    <td>55451</td>
+                </tr>
+                <tr>
+                    <td>3xx</td>
+                    <td>Перенаправления (Redirects)</td>
+                    <td>11104</td>
+                </tr>
+                <tr>
+                    <td>4xx</td>
+                    <td>Ошибки клиента (Clients Errors)</td>
+                    <td>22358</td>
+                </tr>
+                <tr>
+                    <td>5xx</td>
+                    <td>Ошибки сервера (Server Errors)</td>
+                    <td>11087</td>
+                </tr>
+                <tr>
+                    <td>Другое</td>
+                    <td>Другие коды (Information/Custom)</td>
+                    <td>0</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</body>
+</html>

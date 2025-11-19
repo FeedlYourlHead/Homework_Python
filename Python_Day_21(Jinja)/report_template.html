@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Анализ Лог-Файла Веб-Сервера</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Анализ Лог-Файла Веб-Сервера</h1>
+<!--Общая сводка анализа-->
+        <div class="summary-box">
+            <h2>Общая сводка анализа</h2>
+            <p><strong>Время выполнения анализа:</strong> {{ analysis_time }}</p>
+            <p><strong>Общее количество запросов:</strong> {{ total_requests }}</p>
+            <p><strong>Общий объем переданных данных:</strong> {{ total_data }}</p>
+        </div>
+<!--ТОП 10 самых посещаемых URL-->
+        <h2>ТОП 10 самых посещаемых URL</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 5%;">№</th>
+                    <th style="width: 80%;">URL</th>
+                    <th style="width: 15%;">Количество Запросов</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in top_10_urls %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td><code>{{ item[0] }}</code></td>
+                        <td> {{ item[1] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+<!--Сводка по Кодам Ответа (Статистика Статусов)-->
+        <h2>Сводка по Кодам Ответа (Статистика Статусов)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Группа Статусов</th>
+                    <th>Описание</th>
+                    <th>Количество Запросов</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>2xx</td>
+                    <td>Успешные запросы (ОК)</td>
+                    <td>{{ status_summary['2xx'] }}</td>
+                </tr>
+                <tr>
+                    <td>3xx</td>
+                    <td>Перенаправления (Redirects)</td>
+                    <td>{{ status_summary['3xx'] }}</td>
+                </tr>
+                <tr>
+                    <td>4xx</td>
+                    <td>Ошибки клиента (Clients Errors)</td>
+                    <td>{{ status_summary['4xx'] }}</td>
+                </tr>
+                <tr>
+                    <td>5xx</td>
+                    <td>Ошибки сервера (Server Errors)</td>
+                    <td>{{ status_summary['5xx'] }}</td>
+                </tr>
+                <tr>
+                    <td>Другое</td>
+                    <td>Другие коды (Information/Custom)</td>
+                    <td>{{ status_summary['other'] }}</td>
+                </tr>
+            </tbody>
+        </table>
+<!--        Самые тяжелые запросы -->
+        <table>
+            <thead>
+            <tr>
+                <th>Size</th>
+                <th>Request</th>
+                <th>Ip</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in heavy_requests %}
+                <tr></tr>
+            </tbody>
+
+        </table>
+
+    </div>
+
+</body>
+</html>
