@@ -85,7 +85,8 @@ class LogAnalyzer:
             'status_summary': status_summary,
             'heavy_list': self.heavy_requests,
             'format_bytes': format_bytes,
-            'analyzer': self
+            'analyzer': self,
+            'method_stats': self.method_counts.most_common()
         }
         rendered_template = template.render(template_data)
         with open(output_path, 'w', encoding='utf-8') as f:

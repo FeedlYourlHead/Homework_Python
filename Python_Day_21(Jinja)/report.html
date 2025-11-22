@@ -10,7 +10,7 @@
 <!--Общая сводка анализа-->
         <div class="summary-box">
             <h2>Общая сводка анализа</h2>
-            <p><strong>Время выполнения анализа:</strong> 2.4028 сек.</p>
+            <p><strong>Время выполнения анализа:</strong> 1.3949 сек.</p>
             <p><strong>Общее количество запросов:</strong> 100000</p>
             <p><strong>Общий объем переданных данных:</strong> 280.01 MB</p>
         </div>
@@ -125,6 +125,137 @@
                     <td>0</td>
                 </tr>
             </tbody>
+        </table>
+<!--        Самые тяжелые запросы -->
+        <h2>Самые тяжелые запросы</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>№</th>
+                <th>Размер</th>
+                <th>Request - метод</th>
+                <th>IP</th>
+                <th>Статус</th>
+            </tr>
+            </thead>
+            <tbody>
+                
+                <tr>
+                    <td>1</td>
+                    <td> 10000</td>
+                    <td> POST /images/logo.png</td>
+                    <td> 209.24.57.201</td>
+                    <td> 200</td>
+                </tr>
+                
+                <tr>
+                    <td>2</td>
+                    <td> 10000</td>
+                    <td> GET /images/logo.png</td>
+                    <td> 209.18.232.97</td>
+                    <td> 200</td>
+                </tr>
+                
+                <tr>
+                    <td>3</td>
+                    <td> 10000</td>
+                    <td> GET /images/logo.png</td>
+                    <td> 191.168.94.45</td>
+                    <td> 200</td>
+                </tr>
+                
+                <tr>
+                    <td>4</td>
+                    <td> 10000</td>
+                    <td> POST /blog/post-1</td>
+                    <td> 3.245.98.46</td>
+                    <td> 200</td>
+                </tr>
+                
+                <tr>
+                    <td>5</td>
+                    <td> 9999</td>
+                    <td> HEAD /js/app.js</td>
+                    <td> 6.84.232.209</td>
+                    <td> 200</td>
+                </tr>
+                
+                <tr>
+                    <td>6</td>
+                    <td> 9999</td>
+                    <td> POST /blog/post-1</td>
+                    <td> 31.89.123.72</td>
+                    <td> 200</td>
+                </tr>
+                
+                <tr>
+                    <td>7</td>
+                    <td> 9999</td>
+                    <td> GET /blog/post-1</td>
+                    <td> 9.26.195.240</td>
+                    <td> 200</td>
+                </tr>
+                
+                <tr>
+                    <td>8</td>
+                    <td> 9999</td>
+                    <td> GET /contact</td>
+                    <td> 122.20.254.147</td>
+                    <td> 200</td>
+                </tr>
+                
+                <tr>
+                    <td>9</td>
+                    <td> 9998</td>
+                    <td> HEAD /index.html</td>
+                    <td> 101.149.186.56</td>
+                    <td> 200</td>
+                </tr>
+                
+                <tr>
+                    <td>10</td>
+                    <td> 9998</td>
+                    <td> HEAD /login</td>
+                    <td> 33.36.118.11</td>
+                    <td> 200</td>
+                </tr>
+                
+            </tbody>
+        </table>
+
+        <!-- Статистика по методам -->
+
+        <h2>Статистика по методам</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>HTTP Метод</th>
+                <th>Количество запросов</th>
+                <th>Процента от общего числа</th>
+            </tr>
+            </thead>
+            <tbody>
+                
+                <tr>
+                    <td>GET</td>
+                    <td>33490</td>
+                    <td>33.49</td>
+                </tr>
+                
+                <tr>
+                    <td>HEAD</td>
+                    <td>33319</td>
+                    <td>33.32</td>
+                </tr>
+                
+                <tr>
+                    <td>POST</td>
+                    <td>33191</td>
+                    <td>33.19</td>
+                </tr>
+                
+            </tbody>
+
         </table>
 
     </div>
