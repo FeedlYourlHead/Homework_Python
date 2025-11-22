@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Список отелей</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Название</th>
+                <th>Город</th>
+                <th>Оценка</th>
+                <th>Цена,руб.</th>
+                <th>Доступность</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for hotel in hotels %}
+            <tr>
+                <td>{{ hotel.name }}</td>
+                <td>{{ hotel.city }}</td>
+                <td>{{ hotel.rating }}/5</td>
+                <td>{{ hotel.price }} руб.</td>
+                <td>{{ "Доступен" if hotel.available else "Забронирован" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>
