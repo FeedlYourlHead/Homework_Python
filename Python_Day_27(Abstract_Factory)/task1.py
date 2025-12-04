@@ -140,27 +140,126 @@ class VictorianHouseFactory(HouseFactory):
     def create_roof(self) -> Roof:
         return MultiSlopeRoof()
 # =========================================
+class Garage(): #WARNING: Переместить!!!!
+    pass
 
-#Builder =========================================
+#Product Builder =========================================
 class House:
-    def __init__(self, walls, windows, doors, roofs, garage=None) -> None:
-        self.walls = walls
-        self.windows = windows 
-        self.doors = doors
-        self.roofs = roofs
-        self.garage = garage
+    def __init__(self) -> None:
+        self.walls: None | Wall = None
+        self.windows = [] 
+        self.doors = []
+        self.roof: None | Roof = None
+        self.has_garage = False
 
     def display(self):
-        pass #TODO:Доделать
+        print(f'Стены: {self.walls.describe() if self.walls else 'Не построены'}')
+        print(f"Окна: {self.windows[0].describe() if self.windows else 'Нет окон'} (установлено {len(self.windows)} шт.)")
+        print(f"Двери: {self.doors[0].describe() if self.doors else 'нет дверей'}(установлено {len(self.doors)} шт.)")
+        print(f"Крыша: {self.roof.describe() if self.roof else 'Не построена'}")
+        print(f"Гараж: {'Да' if self.has_garage else 'Нет'}")
 
 # =========================================
 
+#Abstract Builder =========================================
+class HouseBuilder(ABC):
+    @abstractmethod
+    def build_walls(self):
+        pass
+
+    @abstractmethod
+    def build_windows(self, count:int):
+        pass
+
+    @abstractmethod
+    def build_doors(self, count:int):
+        pass
+
+    @abstractmethod
+    def build_roof(self):
+        pass
+
+    @abstractmethod
+    def build_garage(self):
+        pass
+
+    @abstractmethod
+    def get_result(self) -> House:
+        pass
+
+# =========================================
+
+
+
+#Concrete Builder =========================================
+class ConcreteHouseBuilder(HouseBuilder):
+    def __init__(self, factory: HouseFactory) -> None:
+        self.factory = factory
+        self.house = House()
+
+    def build_walls(self):
+        self.house.walls = self.factory.create_wall()
+
+    def build_windows(self, count:int):
+        for _ in range(count):
+            self.house.windows.append(self.factory.create_window())
+
+    def build_doors(self, count:int):
+        for _ in range(count):
+            self.house.doors.append(self.factory.create_door())
+
+    def build_roof(self):
+        self.house.roof = self.factory.create_roof()
+
+    def build_garage(self):
+        self.house.has_garage = True
+
+    def get_result(self) -> House:
+        return self.house
+
+# =========================================
+
+#Director =========================================
+class Director:
+    @staticmethod
+    def build_simple_house(builder: HouseBuilder):
+        builder.build_walls()
+        builder.build_windows(2)
+        builder.build_doors(1)
+        builder.build_roof()
+
+    @staticmethod
+    def build_luxury_house(builder:HouseBuilder):
+        builder.build_walls()
+        builder.build_windows(8)
+        builder.build_doors(2)
+        builder.build_roof()
+        builder.build_garage()
+
+# =========================================
 if __name__ == '__main__':
-    wall = GlassWall()
-    window = WoodenWindow()
-    door = MassiveDoor()
-    roof = MultiSlopeRoof()
-    house = House(wall, window, door, roof)
-    print(house.display())
+    modern_factory = ModernHouseFactory()
+    builder = ConcreteHouseBuilder(modern_factory)
+    director = Director()
+    print('Вариант А дом по "стандартному проекту"')
+    print()
+    director.build_luxury_house(builder)
+    modern_luxury_house = builder.get_result()
+    modern_luxury_house.display()
+    print('Вариант B дом вручную')
+    print()
+    classic_factory = ClassicHouseFactory()
+    custom_builder = ConcreteHouseBuilder(classic_factory)
+    custom_builder.build_walls()
+    custom_builder.build_doors(3)
+    custom_builder.build_windows(5)
+    custom_builder.build_roof()
+
+    custom_house = custom_builder.get_result()
+    custom_house.display()
+
+
+
+
 
 
