@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 Космический Шахтёр</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Заголовок -->
+        <header class="game-header">
+            <h1>🚀 Космический Шахтёр: Гонка за ресурсами</h1>
+            <div class="header-stats">
+                <span class="credits">💰 <span id="credits">0</span> кредитов</span>
+                <span class="time">⏱️ <span id="game-time">0</span>с</span>
+            </div>
+        </header>
+
+        <!-- Основной контент -->
+        <div class="main-content">
+            <!-- Левая панель: Станция и Шахты -->
+            <div class="panel station-panel">
+                <h2>🏭 Станция</h2>
+
+                <div class="resources-section">
+                    <h3>📦 Ресурсы на складе</h3>
+                    <div id="station-resources" class="resources-grid"></div>
+                </div>
+
+                <div class="mines-section">
+                    <h3>⛏️ Шахты (Threading)</h3>
+                    <div id="mines-list" class="mines-grid"></div>
+                </div>
+            </div>
+
+            <!-- Центральная панель: Космос и Корабль -->
+            <div class="panel space-panel">
+                <h2>🌌 Космос</h2>
+
+                <div class="ship-status">
+                    <h3>🛸 Корабль</h3>
+                    <div id="ship-info" class="ship-info"></div>
+                    <div id="cargo-info" class="cargo-info"></div>
+                </div>
+
+                <div class="planets-section">
+                    <h3>🪐 Планеты (AsyncIO)</h3>
+                    <div id="planets-grid" class="planets-grid"></div>
+                </div>
+
+                <div class="actions-section">
+                    <button onclick="flyToStation()" class="btn btn-station">
+                        🏠 На станцию
+                    </button>
+                </div>
+            </div>
+
+            <!-- Правая панель: Аналитика и События -->
+            <div class="panel analytics-panel">
+                <h2>📊 Аналитика (Multiprocessing)</h2>
+
+                <div class="analytics-section">
+                    <h3>🧭 Навигатор</h3>
+                    <div id="navigation-info" class="info-block"></div>
+                </div>
+
+                <div class="analytics-section">
+                    <h3>📈 Предсказания цен</h3>
+                    <div id="predictions-info" class="info-block"></div>
+                </div>
+
+                <div class="analytics-section">
+                    <h3>⚔️ Последний бой</h3>
+                    <div id="battle-info" class="info-block"></div>
+                </div>
+
+                <div class="events-section">
+                    <h3>📜 События</h3>
+                    <div id="events-log" class="events-log"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Статистика -->
+        <footer class="game-footer">
+            <div id="stats" class="stats-bar"></div>
+            <button onclick="resetGame()" class="btn btn-reset">🔄 Новая игра</button>
+        </footer>
+    </div>
+
+    <!-- Модальное окно торговли -->
+    <div id="trade-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2 id="modal-title">Торговля</h2>
+            <div id="modal-body"></div>
+            <button onclick="closeModal()" class="btn">Закрыть</button>
+        </div>
+    </div>
+
+    <script src="/static/game.js"></script>
+</body>
+</html>
