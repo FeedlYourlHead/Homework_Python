@@ -12,7 +12,7 @@ class User(Base):
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     username: Mapped[str] = mapped_column(String(30),unique=True)
     email: Mapped[str] = mapped_column(String(30), unique=True)
-    registratin_date: Mapped[datetime.datetime.utcnow] = mapped_column(DateTime) #TODO:Исправить, тут неверно, наверное
+    registratin_date: Mapped[datetime.datetime] = mapped_column(DateTime) #TODO:Исправить, тут неверно, наверное
     orders = relationship('Order', back_populates='users')
 
 
@@ -28,7 +28,7 @@ class Order(Base):
     __tablename__ = 'orders'
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     user_id: Mapped[int] = mapped_column(Integer, ForeignKey('users.id') )
-    order_date: Mapped[datetime.datetime.utcnow] = mapped_column(DateTime)
+    order_date: Mapped[datetime.datetime] = mapped_column(DateTime)
     status: Mapped[str] = mapped_column(String())
     users = relationship('User', back_populates='orders')
 
