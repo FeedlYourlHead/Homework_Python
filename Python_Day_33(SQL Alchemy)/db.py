@@ -9,11 +9,14 @@ class Base(DeclarativeBase):
 
 class User(Base):
     __tablename__ = 'users'
-    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    username: Mapped[str] = mapped_column(String(30),unique=True)
-    email: Mapped[str] = mapped_column(String(30), unique=True)
+    id: Mapped[int] = mapped_column(primary_key=True)
+    username: Mapped[str] = mapped_column(String, nullable=False)
+    email: Mapped[str] = mapped_column(String, nullable=False)
     registratin_date: Mapped[datetime.datetime] = mapped_column(DateTime) #TODO:Исправить, тут неверно, наверное
     orders = relationship('Order', back_populates='users')
+
+    def __repr__(self) -> str:
+        return f'id={self.id} ,username={self.username}, email={self.email}, registratin_date={self.registratin_date}'
 
 
 class Product(Base):
