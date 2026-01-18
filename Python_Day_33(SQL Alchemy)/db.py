@@ -18,14 +18,16 @@ class User(Base):
     def __repr__(self) -> str:
         return f'id={self.id} ,username={self.username}, email={self.email}, registratin_date={self.registratin_date}'
 
-
 class Product(Base):
     __tablename__ = 'products'
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    user: Mapped[str] = mapped_column(String(30))
+    name: Mapped[str] = mapped_column(String(30))
     category: Mapped[str] = mapped_column(String(30))
     price: Mapped[float] = mapped_column(Numeric())
     quantity_in_stock: Mapped[int] = mapped_column(Integer)
+
+    def __repr__(self) -> str:
+        return f'id={self.id}, category={self.category}, price={self.price}, quantity_in_stock={self.quantity_in_stock}'
 
 class Order(Base):
     __tablename__ = 'orders'
@@ -35,13 +37,16 @@ class Order(Base):
     status: Mapped[str] = mapped_column(String())
     users = relationship('User', back_populates='orders')
 
+    def __repr__(self) -> str:
+        return f'id={self.id}, order_date={self.order_date}, status={self.status} '
+
 class OrderItem(Base):
     __tablename__ = 'order_items'
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     order_id: Mapped[int] = mapped_column(Integer(), ForeignKey('orders.id'))
     product_id: Mapped[int] = mapped_column(Integer(), ForeignKey('products.id'))
     quantity: Mapped[int] = mapped_column(Integer())
-    price_at_order: Mapped[float] = mapped_column(Numeric(), ) #TODO: Сделать, чтобы цена товара на момент заказа, копировалась из Product.price
+    price_at_order: Mapped[float] = mapped_column(Numeric, ) #TODO: Сделать, чтобы цена товара на момент заказа, копировалась из Product.price
 
     order: Mapped['Order'] = relationship(
         back_populates='items'
@@ -51,3 +56,7 @@ class OrderItem(Base):
         back_populates='order_items',
         lazy='joined'
     )
+
+
+    def __repr__(self) -> str:
+        return f'id={self.id}, '
