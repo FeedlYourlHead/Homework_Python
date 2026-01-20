@@ -12,7 +12,7 @@ class User(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     username: Mapped[str] = mapped_column(String, unique=True, nullable=False)
     email: Mapped[str] = mapped_column(String, unique=True, nullable=False)
-    registratin_date: Mapped[datetime.datetime] = mapped_column(DateTime, default=datetime.datetime.utcnow) #TODO:Исправить, тут неверно, наверное
+    registratin_date: Mapped[datetime.datetime] = mapped_column(DateTime, default=datetime.datetime.utcnow)
     orders = relationship('Order', back_populates='users', cascade='all, delete-orphan')
 
     def __repr__(self) -> str:
@@ -57,7 +57,7 @@ class OrderItem(Base):
     order_id: Mapped[int] = mapped_column(Integer, ForeignKey('orders.id', ondelete='CASCADE'), nullable=False)
     product_id: Mapped[int] = mapped_column(Integer, ForeignKey('products.id'), nullable=False)
     quantity: Mapped[int] = mapped_column(Integer, nullable=False)
-    price_at_order: Mapped[float] = mapped_column(Numeric(10, 2), nullable=False) #TODO: Сделать, чтобы цена товара на момент заказа, копировалась из Product.price
+    price_at_order: Mapped[float] = mapped_column(Numeric(10, 2), nullable=False) 
     
 
     order: Mapped['Order'] = relationship(
