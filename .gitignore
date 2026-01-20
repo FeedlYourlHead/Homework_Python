@@ -6,6 +6,6 @@ note
 git_windows
 git_windows.pub
 Python_Day_30(SQL)/BookStore.db
-Python_Day_33/electronics_store.db
-Python_Day_33/__pycache__
-Python_Day_33\.vscode
+Python_Day_33\(SQL\ Alchemy\)/.vscode
+Python_Day_33\(SQL\ Alchemy\)/__pycache__
+Python_Day_33\(SQL\ Alchemy\)/electronics_store.db

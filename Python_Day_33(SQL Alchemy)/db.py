@@ -13,7 +13,7 @@ class User(Base):
     username: Mapped[str] = mapped_column(String, unique=True, nullable=False)
     email: Mapped[str] = mapped_column(String, unique=True, nullable=False)
     registratin_date: Mapped[datetime.datetime] = mapped_column(DateTime, default=datetime.datetime.utcnow)
-    orders = relationship('Order', back_populates='users', cascade='all, delete-orphan')
+    orders = relationship('Order', back_populates='user', cascade='all, delete-orphan')
 
     def __repr__(self) -> str:
         return f'id={self.id} ,username={self.username}, email={self.email}, registratin_date={self.registratin_date}'
@@ -25,6 +25,8 @@ class Product(Base):
     category: Mapped[str] = mapped_column(String, nullable=False)
     price: Mapped[float] = mapped_column(Numeric(10, 2), nullable=False)
     quantity_in_stock: Mapped[int] = mapped_column(Integer, default=0)
+
+    order_items = relationship('OrderItem', back_populates='product')
 
     def __repr__(self) -> str:
         return f'id={self.id}, category={self.category}, price={self.price}, quantity_in_stock={self.quantity_in_stock}'
