@@ -1,22 +1,224 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="ru">
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title></title>
-  <link href="css/style.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Создать капсулу времени</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f5f5f5;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 600px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      color: white;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      opacity: 0.9;
+    }
+
+    .form-container {
+      padding: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border-color 0.3s ease;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: #6a11cb;
+    }
+
+    textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 15px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: #4CAF50;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #45a049;
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: #f5f5f5;
+      color: #333;
+      border: 2px solid #e0e0e0;
+    }
+
+    .btn-secondary:hover {
+      background: #e0e0e0;
+    }
+
+    .info-box {
+      background: #e8f4fd;
+      border-left: 4px solid #2196F3;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
+
+    .error {
+      color: #d32f2f;
+      font-size: 0.9rem;
+      margin-top: 5px;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+      }
+
+      .container {
+        border-radius: 10px;
+      }
+
+      .form-container {
+        padding: 20px;
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <div class="container">
+    <div class="header">
+      <h1>🆕 Создать новую капсулу</h1>
+      <p>Запечатайте ваше послание для будущего</p>
+    </div>
 
-  <form method='post' action="">
+    <div class="form-container">
+      {% if error %}
+      <div class="error"
+        style="background: #ffebee; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #c62828;">
+        ⚠️ {{ error }}
+      </div>
+      {% endif %}
 
-    <textarea rows="" cols=""></textarea>
-    <button type="submit">Отправить</button>
+      <form method="POST" action="/create">
+        <div class="form-group">
+          <label for="author">👤 Ваше имя:</label>
+          <input type="text" id="author" name="author" required placeholder="Введите ваше имя или псевдоним">
+        </div>
 
-  </form>
+        <div class="form-group">
+          <label for="content">📝 Текст послания:</label>
+          <textarea id="content" name="content" required
+            placeholder="Напишите ваше послание для будущего..."></textarea>
+        </div>
 
+        <div class="form-group">
+          <label for="unlock_date">📅 Дата открытия:</label>
+          <input type="date" id="unlock_date" name="unlock_date" required min="{{ min_date }}">
+          <small class="error">Дата должна быть в будущем</small>
+        </div>
+
+        <div class="info-box">
+          💡 Капсула будет автоматически открыта в указанную дату.
+          До этого момента текст послания будет скрыт от всех.
+        </div>
+
+        <div class="button-group">
+          <button type="submit" class="btn btn-primary">
+            🔒 Запечатать капсулу
+          </button>
+          <a href="/" class="btn btn-secondary">
+            ← Назад к списку
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Устанавливаем минимальную дату (завтра)
+    document.addEventListener('DOMContentLoaded', function () {
+      const today = new Date();
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+
+      const minDate = tomorrow.toISOString().split('T')[0];
+      document.getElementById('unlock_date').min = minDate;
+    });
+  </script>
 </body>
 
 </html>

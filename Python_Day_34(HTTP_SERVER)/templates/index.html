@@ -1,15 +1,239 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title></title>
-  <link href="css/style.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Цифровая Капсула Времени</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f5f5f5;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 20px;
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    .create-button-container {
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .create-button {
+      display: inline-block;
+      padding: 15px 30px;
+      background: #4CAF50;
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .create-button:hover {
+      background: #45a049;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .capsules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
+      margin-top: 20px;
+    }
+
+    .capsule-card {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease;
+      border: 1px solid #e0e0e0;
+    }
+
+    .capsule-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    .capsule-header {
+      border-bottom: 2px solid #f0f0f0;
+      padding-bottom: 15px;
+      margin-bottom: 15px;
+    }
+
+    .author {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #2c3e50;
+      margin-bottom: 5px;
+    }
+
+    .dates {
+      font-size: 0.9rem;
+      color: #7f8c8d;
+    }
+
+    .capsule-content {
+      margin: 20px 0;
+      padding: 15px;
+      background: #f9f9f9;
+      border-radius: 8px;
+      min-height: 100px;
+    }
+
+    .locked {
+      text-align: center;
+      color: #e74c3c;
+      font-style: italic;
+      padding: 20px;
+      background: #fff5f5;
+      border: 2px dashed #e74c3c;
+      border-radius: 8px;
+    }
+
+    .unlocked {
+      color: #2c3e50;
+      line-height: 1.8;
+      white-space: pre-wrap;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .status-locked {
+      background: #ffebee;
+      color: #c62828;
+    }
+
+    .status-unlocked {
+      background: #e8f5e8;
+      color: #2e7d32;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 50px 20px;
+      color: #7f8c8d;
+      grid-column: 1 / -1;
+    }
+
+    .empty-state i {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      opacity: 0.3;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      padding: 20px;
+      color: #7f8c8d;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    @media (max-width: 768px) {
+      .capsules-grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <header>
+    <h1>✉️ Цифровая Капсула Времени</h1>
+    <p class="subtitle">Отправьте послание в будущее — откройте его в назначенный день</p>
+  </header>
 
+  <div class="create-button-container">
+    <a href="/create" class="create-button">📝 Создать новую капсулу</a>
+  </div>
+
+  <main>
+    <h2>📜 Все капсулы</h2>
+
+    <div class="capsules-grid">
+      {% if capsules %}
+      {% for capsule in capsules %}
+      <div class="capsule-card">
+        <div class="capsule-header">
+          <div class="author">👤 {{ capsule.author }}</div>
+          <div class="dates">
+            <div>📅 Создана: {{ capsule.created_at.strftime('%d.%m.%Y %H:%M') }}</div>
+            <div>🔓 Откроется: {{ capsule.unlock_date.strftime('%d.%m.%Y') }}</div>
+          </div>
+        </div>
+
+        <div class="capsule-content">
+          {% if capsule.is_unlocked %}
+          <div class="unlocked">{{ capsule.content }}</div>
+          <div class="status status-unlocked">✅ Открыта</div>
+          {% else %}
+          <div class="locked">
+            🔒 Капсула заблокирована<br>
+            <small>Будет открыта: {{ capsule.unlock_date.strftime('%d.%m.%Y') }}</small>
+          </div>
+          <div class="status status-locked">🔒 Закрыта до {{ capsule.unlock_date.strftime('%d.%m.%Y') }}</div>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+      {% else %}
+      <div class="empty-state">
+        <div style="font-size: 4rem;">📭</div>
+        <h3>Пока нет ни одной капсулы</h3>
+        <p>Создайте первую капсулу времени, чтобы отправить сообщение в будущее!</p>
+      </div>
+      {% endif %}
+    </div>
+  </main>
+
+  <footer>
+    <p>Цифровая Капсула Времени © 2024</p>
+    <p>Все послания хранятся в зашифрованном виде до даты открытия</p>
+  </footer>
 </body>
 
 </html>
