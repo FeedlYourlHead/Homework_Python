@@ -201,21 +201,21 @@
         <div class="capsule-header">
           <div class="author">👤 {{ capsule.author }}</div>
           <div class="dates">
-            <div>📅 Создана: {{ capsule.created_at.strftime('%d.%m.%Y %H:%M') }}</div>
-            <div>🔓 Откроется: {{ capsule.unlock_date.strftime('%d.%m.%Y') }}</div>
+            <div> Создана: {{ capsule.created_at.strftime('%d.%m.%Y %H:%M') }}</div>
+            <div> Откроется: {{ capsule.unlock_date.strftime('%d.%m.%Y') }}</div>
           </div>
         </div>
 
         <div class="capsule-content">
           {% if capsule.is_unlocked %}
           <div class="unlocked">{{ capsule.content }}</div>
-          <div class="status status-unlocked">✅ Открыта</div>
+          <div class="status status-unlocked"> Открыта</div>
           {% else %}
           <div class="locked">
-            🔒 Капсула заблокирована<br>
+            Капсула заблокирована<br>
             <small>Будет открыта: {{ capsule.unlock_date.strftime('%d.%m.%Y') }}</small>
           </div>
-          <div class="status status-locked">🔒 Закрыта до {{ capsule.unlock_date.strftime('%d.%m.%Y') }}</div>
+          <div class="status status-locked"> Закрыта до {{ capsule.unlock_date.strftime('%d.%m.%Y') }}</div>
           {% endif %}
         </div>
       </div>
