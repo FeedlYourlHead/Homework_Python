@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+</head>
+<body>
+<header>
+    <nav>
+            <a href="/">Авторы</a> |
+            <a href="/books">Книги</a> |
+            {% if user %}
+            <a href="/profile">Мой профиль ({{ user.name }})</a> |
+            <a href="/logout">Выйти</a>
+            {% else %}
+            <a href="/login">Войти</a>
+            <a href="/register">Зарегистрироваться</a>
+            {% endif %}
+        </nav>
+</header>
+<main>
+    <form method="post" action="/register">
+        <input type="text" name="username" placeholder="Логин" required>
+        <input type="password" name="password" placeholder="Пароль" required>
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+    <a href="/login">Уже есть аккаунт?</a>
+</main>
+<footer>
+        <p>2026 Библиотека</p>
+</footer>
+</body>
+</html>

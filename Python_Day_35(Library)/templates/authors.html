@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Авторы</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Библиотека: Авторы</h1>
+        <nav>
+            <a href="/">Авторы</a> |
+            <a href="/books">Книги</a> |
+            {% if user %}
+            <a href="/profile">Мой профиль ({{ user.username }})</a> |
+            <a href="/logout">Выйти</a>
+            {% else %}
+            <a href="/login">Войти</a>
+            <a href="/register">Зарегистрироваться</a>
+            {% endif %}
+        </nav>
+    </header>
+    <main>
+        <h2>Список авторов</h2>
+        <ul class="author-list">
+            {% for author in authors %}
+            <li>
+                <a href="/author/{{ author.id }}">
+                    {{ author.name }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </main>
+    <footer>
+        <p>2026 Библиотека</p>
+    </footer>
+</body>
+
+</html>
