@@ -49,8 +49,8 @@ class Book(Base):
         'Genre', secondary=book_genre_association,
         back_populates='books', lazy='select'
     )
-    description: Mapped[str] = mapped_column(Text)
-    img: Mapped[str] = mapped_column(Text)
+    description: Mapped[str] = mapped_column(Text) 
+    img: Mapped[str] = mapped_column(Text) 
 
     # back_populates - название атрибута связи (двусторонняя связь)
     # ForeignKey через таблицы обращаемся к атрибуту (id)
@@ -114,9 +114,9 @@ def setup_database():
             ab2 = AuthorBio(bio_text='Мастер детективного жанра...',
                             author=a2)
             g1, g2, g3 = Genre(name='Роман'), Genre(name='Фантастика'), Genre(name='Детектив')
-            b1 = Book(name='Гарри Поттер и филосовский камень', author=a1)
+            b1 = Book(name='Гарри Поттер и филосовский камень', author=a1, description='Сюжет строится вокруг главного героя, сироты Гарри Поттера, который узнаёт, что он волшебник в его одиннадцатый день рождения. Обучаясь в школе чародейства и волшебства «Хогвартс», он заводит себе близких друзей, Рона Уизли и Гермиону Грейнджер, с помощью которых останавливает попытку возвращения злого волшебника Волан-де-Морта, убившего родителей Гарри, когда ему было всего шесть месяцев.', img='https://upload.wikimedia.org/wikipedia/ru/d/d2/Обложка_первого_издания_романа_Гарри_Поттер_и_философский_камень.jpg')
             b1.genres.extend([g1, g2])
-            b2 = Book(name='Убийство в Восточном экспрессе', author=a2)
+            b2 = Book(name='Убийство в Восточном экспрессе', author=a2, description='Иерусалим, 1934 год. Знаменитого бельгийского сыщика Эркюля Пуаро (Кеннет Брана) просят раскрыть загадочное преступление. Перед тем как провозгласить итоги расследования, Пуаро пытается позавтракать. Ему доставляют яйца, но Пуаро недоволен тем, что они неодинакового размера. В конечном итоге он отказывается от завтрака и отправляется к Стене Плача. Из Храма Гроба Господня похитили реликвию, в краже подозревают раввина, имама и священника. Преступник оставил улики в виде следов дорогой обуви. Бедные служители культа не могут позволить себе такую, зато подобные ботинки носит главный инспектор полиции, а ему выгодно разжигать межконфессиональную рознь. При обыске в его доме найдена похищенная ценность. Преступник пытается бежать, но при помощи Пуаро его удаётся схватить.', img='https://upload.wikimedia.org/wikipedia/ru/1/16/Убийство_в_«Восточном_экспрессе».jpg')
             b2.genres.append(g3)
             session.add_all([a1, a2, ab1, ab2, g1, g2, g3, b1, b2])
             session.commit()
@@ -182,3 +182,7 @@ def add_to_read(user_id, book_id):
         if user and book and book not in user.read_books:
             user.read_books.append(book)
             session.commit()
+
+def get_book_detail(book_id):
+    with Session(engine) as session:
+        return session.query(Book).options(selectinload(Book.genres), selectinload(Book.author)).filter_by(id=book_id).first()

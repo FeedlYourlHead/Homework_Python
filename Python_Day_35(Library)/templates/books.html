@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Книги</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
+
 <body>
     <header>
         <h1>Библиотека: Список книг</h1>
@@ -22,43 +24,44 @@
     </header>
     <main>
         <div class="controls">
-            <input type="text" id="search-input"
-                   placeholder="Искать по названию книги...">
+            <input type="text" id="search-input" placeholder="Искать по названию книги...">
             <select id="genre-filter">
                 <option value="all">Все жанры</option>
                 {% for genre in genres %}
-                    <option value="{{ genre.name }}">
-                        {{ genre.name }}
-                    </option>
+                <option value="{{ genre.name }}">
+                    {{ genre.name }}
+                </option>
                 {% endfor %}
             </select>
         </div>
         <ul id="book-list" class="book-list">
             {% for book in books %}
-                <li id="book-{{ book.id }}" class="book-item"
-                data-genres="{{ book.genres|map(attribute='name')|join(',') }}"
-                >
-                    <span class="book-title">{{ book.name }}</span>
-                    <span class="book-author">Автор: <a href="/author/{{ book.author.id }}">{{ book.author.name }}</a></span>
-                    <span class="book-genres">
-                        Жанры:
-                        {% for genre in book.genres %}
-                            {{ genre.name }}
-                        {% endfor %}
-                    </span>
-                    {% if user %}
-                        <form method="post" action="/add_read">
-                           <input type="hidden" name="book_id" value="{{ book.id }}">
-                            <button type="submit">Прочитано</button>
-                        </form>
-                    {% endif %}
-                </li>
+            <li id="book-{{ book.id }}" class="book-item"
+                data-genres="{{ book.genres|map(attribute='name')|join(',') }}">
+                <span class="book-title"><a href="/book_details/{{ book.id }}">{{ book.name }}</a></span>
+                <span class="book-author">Автор: <a href="/author/{{ book.author.id }}">{{ book.author.name
+                        }}</a></span>
+                <span class="book-genres">
+
+                    Жанры:
+                    {% for genre in book.genres %}
+                    {{ genre.name }}
+                    {% endfor %}
+                </span>
+                {% if user %}
+                <form method="post" action="/add_read">
+                    <input type="hidden" name="book_id" value="{{ book.id }}">
+                    <button type="submit">Прочитано</button>
+                </form>
+                {% endif %}
+            </li>
             {% endfor %}
         </ul>
     </main>
     <footer>
         <p>2026 Библиотека</p>
     </footer>
-<script src="/static/script.js"></script>
+    <script src="/static/script.js"></script>
 </body>
+
 </html>

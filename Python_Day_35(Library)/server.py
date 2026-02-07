@@ -4,7 +4,7 @@ from urllib.parse import urlparse, parse_qs
 template_env = Environment(loader=FileSystemLoader('templates'))
 from db import (get_all_authors, get_author_detail, get_all_books,
                 get_all_genres, setup_database, create_user, auth_user,
-                get_user_by_id, add_to_read)
+                get_user_by_id, add_to_read, get_book_detail)
 from http import cookies
 
 def render_template(template_name, context={}):
@@ -69,9 +69,19 @@ class LibraryHandler(BaseHTTPRequestHandler):
                 self.end_headers()
                 return
 
-            elif path == '/book_details':
-                pass
-                # TODO: Дописать эндпоинт
+            elif path.startswith('/book_details/'):
+                book_id = int(path.split('/')[-1])
+                book = get_book_detail(book_id)
+                if not book:
+                    status_code = 404
+                    content = render_template('404.html', {'message': 'Книга не найдена'})
+                else:
+                    content = render_template('book_details.html', {
+                        'book': book,
+                        'author': book.author,
+                        'user': user
+                    })
+
             else:
                 status_code = 404
                 content = render_template('404.html',

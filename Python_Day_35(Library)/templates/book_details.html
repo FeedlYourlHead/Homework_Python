@@ -8,8 +8,9 @@
 </head>
 
 <body>
+
   <header>
-    <h1>Библиотека: Авторы</h1>
+    <h1>Информация о книге "{{ book.name }}"</h1>
     <nav>
       <a href="/">Авторы</a> |
       <a href="/books">Книги</a> |
@@ -22,21 +23,29 @@
       {% endif %}
     </nav>
   </header>
+
   <main>
-    <h2>Список авторов</h2>
-    <ul class="author-list">
-      {% for author in authors %}
-      <li>
-        <a href="/author/{{ author.id }}">
-          {{ author.name }}
-        </a>
-      </li>
-      {% endfor %}
-    </ul>
+
+    <section class="book-info">
+      <img src="{{ book.img }}" alt="photo">
+      <h2><strong>Название:</strong> {{ book.name }}</h2>
+      <h2><strong>Автор:</strong> {{ book.author.name }}</h2>
+      <h2>
+        <strong>Жанры:</strong>
+        {% for genre in book.genres %}
+        {{ genre.name }}
+        {% endfor %}
+      </h2>
+      <h2><strong>Описание:</strong> {{ book.description }}</h2>
+    </section>
+
+
+
+
+
   </main>
-  <footer>
-    <p>2026 Библиотека</p>
-  </footer>
+
+
 </body>
 
 </html>

@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>{{ author.name }}</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
+
 <body>
     <header>
         <h1>Библиотека: {{ author.name }}</h1>
@@ -30,7 +32,7 @@
             <h3>Книги автора</h3>
             <ul>
                 {% for book in author.books %}
-                    <li>{{ book.name }}</li>
+                <li>{{ book.name }}</li>
                 {% endfor %}
             </ul>
         </section>
@@ -39,4 +41,5 @@
         <p>2026 Библиотека</p>
     </footer>
 </body>
+
 </html>
