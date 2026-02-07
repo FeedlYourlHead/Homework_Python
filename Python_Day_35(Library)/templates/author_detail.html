@@ -32,7 +32,7 @@
             <h3>Книги автора</h3>
             <ul>
                 {% for book in author.books %}
-                <li>{{ book.name }}</li>
+                <li><a href="/book_details/{{ book.id }}">{{ book.name }}</a></li>
                 {% endfor %}
             </ul>
         </section>

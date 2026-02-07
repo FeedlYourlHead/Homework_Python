@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Личный кабинет</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
+
 <body>
-<header>
-    <nav>
+    <header>
+        <nav>
             <a href="/">Авторы</a> |
             <a href="/books">Книги</a> |
             {% if user %}
@@ -17,19 +20,20 @@
             <a href="/register">Зарегистрироваться</a>
             {% endif %}
         </nav>
-</header>
-<main>
-    <h1>Личный кабинет {{ user.username }}</h1>
-    <p>Прочитано {{ user.read_books|length }} книг</p>
-    <ul>
-        {% for book in user.read_books %}
-            <li>{{ book.name }}</li>
-        {% endfor %}
-    </ul>
-    <a href="/books">К списку книг</a>
+    </header>
+    <main>
+        <h1>Личный кабинет {{ user.username }}</h1>
+        <p>Прочитано {{ user.read_books|length }} книг</p>
+        <ul>
+            {% for book in user.read_books %}
+            <li><a href="/book_details/{{ book.id }}">{{ book.name }}</a></li>
+            {% endfor %}
+        </ul>
+        <a href="/books">К списку книг</a>
     </main>
-<footer>
+    <footer>
         <p>2026 Библиотека</p>
     </footer>
 </body>
+
 </html>

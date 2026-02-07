@@ -29,7 +29,7 @@
     <section class="book-info">
       <img src="{{ book.img }}" alt="photo">
       <h2><strong>Название:</strong> {{ book.name }}</h2>
-      <h2><strong>Автор:</strong> {{ book.author.name }}</h2>
+      <h2><strong>Автор:</strong> <a href="/author/{{ book.author.id }}">{{ book.author.name }}</a></h2>
       <h2>
         <strong>Жанры:</strong>
         {% for genre in book.genres %}
@@ -49,6 +49,3 @@
 </body>
 
 </html>
-
-
-<!-- TODO:ПЕРЕДЕЛАТЬ -->
