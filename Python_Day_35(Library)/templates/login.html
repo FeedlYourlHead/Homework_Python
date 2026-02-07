@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Логин</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
+
 <body>
-<header>
-    <nav>
+    <header>
+        <nav>
             <a href="/">Авторы</a> |
             <a href="/books">Книги</a> |
             {% if user %}
@@ -17,17 +20,18 @@
             <a href="/register">Зарегистрироваться</a>
             {% endif %}
         </nav>
-</header>
-<main>
-    <form method="post" action="/login">
-        <input type="text" name="username" placeholder="Логин" required>
-        <input type="password" name="password" placeholder="Пароль" required>
-        <button type="submit">Войти</button>
-    </form>
-    <a href="/register">Еще нет аккаунта?</a>
+    </header>
+    <main>
+        <form method="post" action="/login">
+            <input type="text" name="username" placeholder="Логин" required>
+            <input type="password" name="password" placeholder="Пароль" required>
+            <button type="submit">Войти</button>
+        </form>
+        <a href="/register">Еще нет аккаунта?</a>
     </main>
-<footer>
+    <footer>
         <p>2026 Библиотека</p>
     </footer>
 </body>
+
 </html>
