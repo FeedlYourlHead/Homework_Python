@@ -1,8 +1,12 @@
-from flask_sqlalchemy import  SQLAlchemy, Integer
+# НЕ ДОДЕЛАНО!!!!
+
+
+from flask_sqlalchemy import  SQLAlchemy 
 from flask import render_template, request, Flask
+from datetime import datetime
 
 app = Flask(__name__)
-db = SQLAlchemy(app)
+db = SQLAlchemy()
 
 @app.route('/')
 def index():
@@ -10,7 +14,9 @@ def index():
 
 
 class Workouts(db.Model):
-    pass
+    id = db.Column(db.Integer, primary_key=True)
+    reps = db.Column(db.Integer)
+    date = db.Column(db.DateTime, default=datetime.utcnow)
 
     
 
