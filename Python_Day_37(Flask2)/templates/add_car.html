@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Добавить авто{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card shadow">
+      <div class="card-header bg-success text-white">
+        <h4 class="mb-0">➕ Новый автомобиль</h4>
+      </div>
+      <div class="card-body">
+        <form method="POST">
+          {{ form.hidden_tag() }}
+          <div class="mb-3">
+            {{ form.brand.label(class="form-label") }}
+            {{ form.brand(class="form-control", placeholder="BMW") }}
+            {% for e in form.brand.errors %}<small class="text-danger">{{ e }}</small>{% endfor %}
+          </div>
+          <div class="mb-3">
+            {{ form.model.label(class="form-label") }}
+            {{ form.model(class="form-control", placeholder="X5") }}
+            {% for e in form.model.errors %}<small class="text-danger">{{ e }}</small>{% endfor %}
+          </div>
+          <div class="mb-3">
+            {{ form.year.label(class="form-label") }}
+            {{ form.year(class="form-control", type="number", placeholder="2020") }}
+            {% for e in form.year.errors %}<small class="text-danger">{{ e }}</small>{% endfor %}
+          </div>
+          <div class="mb-4">
+            {{ form.fuel_type.label(class="form-label") }}
+            {{ form.fuel_type(class="form-select") }}
+            {% for e in form.fuel_type.errors %}<small class="text-danger">{{ e }}</small>{% endfor %}
+          </div>
+          <div class="d-grid gap-2">
+            {{ form.submit(class="btn btn-success", value="Сохранить") }}
+            <a href="{{ url_for('main.dashboard') }}" class="btn btn-outline-secondary">Отмена</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

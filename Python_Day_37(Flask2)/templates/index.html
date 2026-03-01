@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Главная{% endblock %}
+{% block content %}
+<div class="text-center py-5">
+  <h1 class="display-4">🚗 MyGarage</h1>
+  <p class="lead">Учет автомобилей в личном владении</p>
+  <hr class="my-4 w-25 mx-auto">
+  {% if current_user.is_authenticated %}
+  <a href="{{ url_for('main.dashboard') }}" class="btn btn-primary btn-lg">Мой гараж</a>
+  {% else %}
+  <a href="{{ url_for('main.register') }}" class="btn btn-primary btn-lg me-2">Регистрация</a>
+  <a href="{{ url_for('main.login') }}" class="btn btn-outline-primary btn-lg">Вход</a>
+  {% endif %}
+</div>
+{% endblock %}

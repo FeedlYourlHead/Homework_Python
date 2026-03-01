@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Мой гараж{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2><span class="text-primary">{{ current_user.username }}</span>, ваш гараж</h2>
+  <a href="{{ url_for('main.add_car') }}" class="btn btn-success">+ Добавить</a>
+</div>
+
+{% if cars %}
+<div class="row g-4">
+  {% for car in cars %}
+  <div class="col-md-4">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">{{ car.brand }} {{ car.model }}</h5>
+        <p class="card-text mb-1">📅 {{ car.year }} г.</p>
+        <p class="card-text mb-3">⛽ {{ car.fuel_type }}</p>
+        <a href="{{ url_for('main.delete_car', car_id=car.id) }}" class="btn btn-sm btn-outline-danger"
+          onclick="return confirm('Удалить {{ car.brand }} {{ car.model }}?')">✖ Удалить</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div class="text-center py-5">
+  <p class="lead text-muted mb-4">🚙 В гараже пока пусто</p>
+  <a href="{{ url_for('main.add_car') }}" class="btn btn-primary">Добавить первый автомобиль</a>
+</div>
+{% endif %}
+{% endblock %}
