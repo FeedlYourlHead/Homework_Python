@@ -1,0 +1,138 @@
+<!-- feedback/templates/home.html -->
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Главная страница</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .user-info {
+      background-color: #e9ecef;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .user-info p {
+      margin: 0;
+    }
+
+    .menu {
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .menu a,
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .menu a:hover,
+    .btn:hover {
+      background-color: #0056b3;
+    }
+
+    .btn-logout {
+      background-color: #dc3545;
+    }
+
+    .btn-logout:hover {
+      background-color: #c82333;
+    }
+
+    .messages {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 20px;
+    }
+
+    .messages li {
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    .messages .success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .messages .error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <div class="user-info">
+      {% if user.is_authenticated %}
+      <p>Добро пожаловать, <strong>{{ user.username }}</strong>!</p>
+      <a href="{% url 'logout' %}" class="btn btn-logout">Выйти</a>
+      {% else %}
+      <p>Вы не авторизованы</p>
+      <div>
+        <a href="{% url 'login' %}" class="btn">Войти</a>
+        <a href="{% url 'register' %}" class="btn">Регистрация</a>
+      </div>
+      {% endif %}
+    </div>
+
+    <h1>Добро пожаловать на наш сайт!</h1>
+    <p>Это простое Django приложение с формой обратной связи.</p>
+
+    <div class="menu">
+      <a href="{% url 'feedback_form' %}">Оставить отзыв</a>
+      {% if user.is_authenticated %}
+      <a href="{% url 'all_feedback' %}">Все отзывы</a>
+      {% endif %}
+    </div>
+  </div>
+</body>
+
+</html>

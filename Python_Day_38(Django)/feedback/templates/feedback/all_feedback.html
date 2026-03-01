@@ -6,81 +6,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Все отзывы</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-      background-color: #f5f5f5;
+    /* ... предыдущие стили ... */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
     }
 
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      background-color: white;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    h1 {
-      color: #333;
-    }
-
-    .feedback-item {
-      border: 1px solid #ddd;
-      padding: 15px;
-      margin-bottom: 15px;
+    .user-info {
+      background-color: #e9ecef;
+      padding: 10px 15px;
       border-radius: 5px;
     }
 
-    .feedback-header {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 10px;
-      color: #666;
-    }
-
-    .name {
-      font-weight: bold;
-      color: #333;
-    }
-
-    .date {
-      font-size: 0.9em;
-    }
-
-    .email {
-      color: #007bff;
-    }
-
-    .message {
-      margin-top: 10px;
-      line-height: 1.5;
-    }
-
-    .no-feedback {
-      text-align: center;
-      color: #666;
-      padding: 30px;
-    }
-
-    .back-link {
-      display: inline-block;
-      margin-top: 20px;
-      color: #007bff;
+    .btn-logout {
+      background-color: #dc3545;
+      color: white;
+      padding: 5px 10px;
       text-decoration: none;
-    }
-
-    .back-link:hover {
-      text-decoration: underline;
+      border-radius: 3px;
+      margin-left: 10px;
     }
   </style>
 </head>
 
 <body>
   <div class="container">
-    <h1>Все отзывы</h1>
+    <div class="header">
+      <h1>Все отзывы</h1>
+      <div class="user-info">
+        {{ user.username }}
+        <a href="{% url 'logout' %}" class="btn-logout">Выйти</a>
+      </div>
+    </div>
 
+    <!-- Остальное содержимое без изменений -->
     {% if feedbacks %}
     {% for feedback in feedbacks %}
     <div class="feedback-item">
